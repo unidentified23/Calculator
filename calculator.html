@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <table border="1">
+
+        <tr>
+            <td colspan="4">
+                <input type="text" id="inputbox" value="0" />
+            </td>
+        </tr>
+        <tr>
+            <td class="digitBtn" onclick="digitBtnpressed(7)">7</td>
+            <td class="digitBtn" onclick="digitBtnpressed(8)">8</td>
+            <td class="digitBtn" onclick="digitBtnpressed(9)">9</td>
+            <td class="operatorBtn" onclick="operatorBtn('*')">x</td>
+        </tr>
+        <tr>
+            <td class="digitBtn" onclick="digitBtnpressed(4)">4</td>
+            <td class="digitBtn" onclick="digitBtnpressed(5)">5</td>
+            <td class="digitBtn" onclick="digitBtnpressed(6)">6</td>
+            <td class="operatorBtn" onclick="operatorBtn('-')">-</td>
+        </tr>
+        <tr>
+            <td class="digitBtn" onclick="digitBtnpressed(1)">1</td>
+            <td class="digitBtn" onclick="digitBtnpressed(2)">2</td>
+            <td class="digitBtn" onclick="digitBtnpressed(3)">3</td>
+            <td class="operatorBtn" onclick="operatorBtn('+')">+</td>
+        </tr>
+        <tr>
+            <td class="digitBtn"  onclick="digitBtnpressed(0)">0</td>
+            <td class="acBtn" onclick="btnACPressed()">AC</td>
+            <td class="operatorBtn" onclick="decimalBtn('.')">.</td>
+              <td class="operatorBtn" onclick="operatorBtn('/')">/</td>
+        </tr>
+
+        <tr>
+            <td class="operatorBtn" colspan="2" onclick="equalsBtn()">=</td>
+            <td class="operatorBtn" onclick="btnsqrtPressed()">√</td>
+            <td class="operatorBtn" onclick="powerBtn('^')">^</td>
+        </tr>
+    </table>
+    <script>
+
+        var newline = true;
+        var currentOperator;
+        var value1;
+        var number1;
+        function digitBtnpressed(button) {
+
+            if (newline) {
+                document.getElementById("inputbox").value = button;
+                newline = false;
+            } else {
+                var currentValue = document.getElementById("inputbox").value;
+                document.getElementById("inputbox").value = currentValue + button;
+            }
+        }
+
+        function btnACPressed() {
+            document.getElementById("inputbox").value = 0;
+            newline = true;
+        }
+        
+        function decimalBtn(dot){
+            currentValue2 = document.getElementById("inputbox").value;
+            document.getElementById("inputbox").value = currentValue2 + dot;
+        }
+
+        function operatorBtn(operator) {
+            currentOperator = operator;
+            number1 = document.getElementById("inputbox").value;
+            if(number1.includes(".")) {
+                value1 = parseFloat(number1);
+            } else {
+                value1 = parseInt(number1);
+            }
+            newline = true;
+        }
+
+        function equalsBtn() {
+            var total;
+             number2 = document.getElementById("inputbox").value;
+              if(number2.includes(".")) {
+                value2 = parseFloat(number2);
+            } else {
+                value2 = parseInt(number2);
+            }
+            switch (currentOperator) {
+                case "+":
+                    total = value1 + value2;
+                    break;
+                case "-":
+                    total = value1 - value2
+                    break;
+                case "/":
+                    total = value1 / value2
+                    break;
+                case "*":
+                    total = value1 * value2
+                    break;
+                case "^":
+                    total = Math.pow(value1, value2)
+                    break;
+            }
+            document.getElementById("inputbox").value = total;
+
+            value1 = 0;
+            newline = true;
+        }
+
+        function btnsqrtPressed() {
+            var num1;
+            var num2;
+            num1 = parseInt(document.getElementById("inputbox").value);
+            num2 = Math.sqrt(num1);
+            document.getElementById("inputbox").value = num2;
+        }
+
+        function powerBtn(operator){
+            value1 = parseInt(document.getElementById("inputbox").value);
+            currentOperator = operator;
+            newline = true;
+        }
+    </script>
+</body>
+
+</html>
